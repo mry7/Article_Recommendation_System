@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benzerlik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container-makale {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #456fa0;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #456fa0;
+        }
+        .btn {
+            margin-right: 5px;
+        }
+
+
+         .btn-makale {
+    margin-right: 5px;
+    background-color: #456fa0;
+    border-radius: 10px;
+    padding: 10px 80px; /* Boyutunu artırmak için  */
+    font-size: 16px; /* Yazı boyutunu büyütmek için  */
+    display: block; /* Butonun genişliği alması için */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Butonun içindeki metni ortalamak için  */
+    width: fit-content; /* Butonun içeriğine göre genişlemesi için */
+}
+
+        .card {
+            margin-top: 30px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        #yenilee-buttonuu {
+           margin-right: 5px;
+    background-color: #456fa0;
+    border-radius: 10px;
+    padding: 10px 80px; /* Boyutunu artırmak için  */
+    font-size: 16px; /* Yazı boyutunu büyütmek için  */
+    display: block; /* Butonun genişliği alması için */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Butonun içindeki metni ortalamak için  */
+    width: fit-content; /* Butonun içeriğine göre genişlemesi için */
+        }
+    </style>
+</head>
+<body>
+  <div class="container-makale">
+        <h2 class="mt-5">Makale Arama</h2>
+        <form id="aramaaFormm" method="POST" action="/aramaa" class="mt-4">
+            <div class="form-group">
+                <label for="keyword">Anahtar Kelime:</label>
+                <input type="text" id="keyword" name="keyword" class="form-control" required>
+            </div>
+            <button type="submit" class="btn-makale btn-primary">Ara</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+ <div class="container table-container">
+        <h1>SciBERT Modeli Önerileri</h1>
+        <table id="scibertt-results" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Makale no</th>
+                    <th>Makale Adı</th>
+                    <th>Benzerlik Skoru</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- SciBERT sonuçları burada olacak -->
+            </tbody>
+        </table>
+
+        <h1>FastText Modeli Önerileri</h1>
+        <table id="fasttextt-results" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Makale no</th>
+                    <th>Makale Adı</th>
+                    <th>Benzerlik Skoru</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- FastText sonuçları burada olacak -->
+            </tbody>
+        </table>
+
+       <div class="card">
+            <button id="yenilee-buttonuu" class="btn btn-info">Yenile</button>
+            <h2>SciBERT Precision: <span id="precision-scibert">N/A</span></h2>
+            <h2>FastText Precision: <span id="precision-fasttext">N/A</span></h2>
+            <h2>Total Precision: <span id="precision-total">N/A</span></h2>
+        </div>
+    </div>
+
+</div>
+
+<script>
+     document.getElementById('aramaaFormm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const keyword = document.getElementById('keyword').value;
+
+            fetch('/aramaa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `keyword=${keyword}`
+            })
+            .then(response => response.json())
+            .then(verii => {
+                const resultDivv = document.getElementById('result');
+                resultDivv.innerHTML = `<p>${verii.message}</p>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+
+    function makaleeDetaylariniiGosterr(belgeeİsmii) {
+        // Detaylar sayfasına yönlendirme
+        window.location.href = "/makalee_detaylarii?belgeeİsmii=" + belgeeİsmii;
+    }
+
+    function karariiGonderr(belgeeİsmii, kararr, modellTuruu) {
+        fetch('/guncellee', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                belgee_ismii: belgeeİsmii,
+                geriiBildirimm: kararr,
+                modell_turuu: modellTuruu
+            }),
+        })
+        .then(response => response.json())
+        .then(verii => {
+            console.log(verii);
+            // Precision değerlerini güncelle
+            document.getElementById('precision-scibert').textContent = verii.precisionn_degerii__scibert.toFixed(2);
+            document.getElementById('precision-fasttext').textContent = verii.precisionn_degerii__fasttext.toFixed(2);
+            document.getElementById('precision-total').textContent = verii.precisionn_degerii__toplamm.toFixed(2);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    document.getElementById('yenilee-buttonuu').addEventListener('click', function() {
+        // Yenileme butonuna tıklandığında yapılacak işlemler
+        location.reload(); // Sayfayı yenile
+    });
+
+    // SciBERT sonuçlarını al ve göster
+    fetch('/scibertt_dataa')
+        .then(response => response.json())
+        .then(verii => {
+            const scibertSonuclarii = document.getElementById('scibertt-results').getElementsByTagName('tbody')[0];
+            verii.forEach(doc => {
+                const row = scibertSonuclarii.insertRow();
+                const hucree1 = row.insertCell(0);
+                const hucree2 = row.insertCell(1);
+                const hucree3 = row.insertCell(2);
+                const hucree4 = row.insertCell(3); // Buton sütunu
+
+                hucree1.textContent = doc[0];
+                hucree2.textContent = doc[1];
+                hucree3.textContent = doc[2];
+
+                const uygunnButtonuu = document.createElement('button');
+                uygunnButtonuu.textContent = 'Uygun';
+                uygunnButtonuu.className = 'btn btn-success';
+                uygunnButtonuu.addEventListener('click', function() {
+                    karariiGonderr(doc[0], 'uygun', 'scibert');
+                });
+
+                const uygunnDegillButtonuu = document.createElement('button');
+                uygunnDegillButtonuu.textContent = 'Uygun Değil';
+                uygunnDegillButtonuu.className = 'btn btn-danger';
+                uygunnDegillButtonuu.addEventListener('click', function() {
+                    karariiGonderr(doc[0], 'uygun değil', 'scibert');
+                });
+
+                const detaylarrButtonuu = document.createElement('button'); // Detaylar için buton ekle
+                detaylarrButtonuu.textContent = 'Detaylar';
+                detaylarrButtonuu.className = 'btn btn-info';
+                detaylarrButtonuu.addEventListener('click', function() {
+                    makaleeDetaylariniiGosterr(doc[0]); // Makale detaylarını göster
+                });
+
+                hucree4.appendChild(uygunnButtonuu);
+                hucree4.appendChild(uygunnDegillButtonuu);
+                hucree4.appendChild(detaylarrButtonuu); // Detaylar butonunu ekle
+            });
+        })
+        .catch(error => console.error('Error:', error));
+
+    // FastText sonuçlarını al ve göster
+    fetch('/fasttextt_dataa')
+        .then(response => response.json())
+        .then(verii => {
+            const fasttextSonuclarii = document.getElementById('fasttextt-results').getElementsByTagName('tbody')[0];
+            verii.forEach(doc => {
+                const row = fasttextSonuclarii.insertRow();
+                const hucree1 = row.insertCell(0);
+                const hucree2 = row.insertCell(1);
+                const hucree3 = row.insertCell(2);
+                const hucree4 = row.insertCell(3); // Buton sütunu
+
+                hucree1.textContent = doc[0];
+                hucree2.textContent = doc[1];
+                hucree3.textContent = doc[2];
+
+                const uygunnButtonuu = document.createElement('button');
+                uygunnButtonuu.textContent = 'Uygun';
+                uygunnButtonuu.className = 'btn btn-success';
+                uygunnButtonuu.addEventListener('click', function() {
+                    karariiGonderr(doc[0], 'uygun', 'fasttext');
+                });
+
+                const uygunnDegillButtonuu = document.createElement('button');
+                uygunnDegillButtonuu.textContent = 'Uygun Değil';
+                uygunnDegillButtonuu.className = 'btn btn-danger';
+                uygunnDegillButtonuu.addEventListener('click', function() {
+                    karariiGonderr(doc[0], 'uygun değil', 'fasttext');
+                });
+
+                const detaylarrButtonuu = document.createElement('button'); 
+                detaylarrButtonuu.textContent = 'Detaylar';
+                detaylarrButtonuu.className = 'btn btn-info';
+                detaylarrButtonuu.addEventListener('click', function() {
+                    makaleeDetaylariniiGosterr(doc[0]); // Makale detaylarını göster
+                });
+
+                hucree4.appendChild(uygunnButtonuu);
+                hucree4.appendChild(uygunnDegillButtonuu);
+                hucree4.appendChild(detaylarrButtonuu); 
+            });
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+<script>
+    if (window.location.href !== "http://127.0.0.1:5000/") {
+        window.location.href = "http://127.0.0.1:5000/";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlgi Alanları Seçimi</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        form {
+            margin: 0 auto;
+            width: 50%;
+            max-width: 600px;
+        }
+        .interest-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+        }
+        .ilgiAlani-ogesii {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+        label {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        input[type="checkbox"]:checked + label {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>İlgi Alanları Seçimi</h1>
+    <form action="http://127.0.0.1:5000/sec_ilgi_alani" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="interest-group">
+
+
+           
+
+            <input type="checkbox" name="ilgi_alani" id="control" value="control">
+            <label for="control" class="ilgiAlani-ogesii">control</label>
+
+            <input type="checkbox" name="ilgi_alani" id="information" value="information">
+            <label for="information" class="ilgiAlani-ogesii">information</label>
+
+            <input type="checkbox" name="ilgi_alani" id="system" value="system">
+            <label for="system" class="ilgiAlani-ogesii">system</label>
+
+            <input type="checkbox" name="ilgi_alani" id="data" value="data">
+            <label for="data" class="ilgiAlani-ogesii">data</label>
+
+            <input type="checkbox" name="ilgi_alani" id="analysis" value="analysis">
+            <label for="analysis" class="ilgiAlani-ogesii">analysis</label>
+
+            <input type="checkbox" name="ilgi_alani" id="image" value="image">
+            <label for="image" class="ilgiAlani-ogesii">image</label>
+
+            <input type="checkbox" name="ilgi_alani" id="computing" value="computing">
+            <label for="computing" class="ilgiAlani-ogesii">computing</label>
+
+            <input type="checkbox" name="ilgi_alani" id="theory" value="theory">
+            <label for="theory" class="ilgiAlani-ogesii">theory</label>
+
+            <input type="checkbox" name="ilgi_alani" id="management" value="management">
+            <label for="management" class="ilgiAlani-ogesii">management</label>
+
+            <input type="checkbox" name="ilgi_alani" id="computer" value="computer">
+            <label for="computer" class="ilgiAlani-ogesii">computer</label>
+
+            <input type="checkbox" name="ilgi_alani" id="processing" value="processing">
+            <label for="processing" class="ilgiAlani-ogesii">processing</label>
+
+            <input type="checkbox" name="ilgi_alani" id="model" value="model">
+            <label for="model" class="ilgiAlani-ogesii">model</label>
+
+            <input type="checkbox" name="ilgi_alani" id="internet" value="internet">
+            <label for="internet" class="ilgiAlani-ogesii">internet</label>
+
+            <input type="checkbox" name="ilgi_alani" id="power" value="power">
+            <label for="power" class="ilgiAlani-ogesii">power</label>
+
+            <input type="checkbox" name="ilgi_alani" id="software" value="software">
+            <label for="software" class="ilgiAlani-ogesii">software</label>
+
+            <input type="checkbox" name="ilgi_alani" id="algorithm" value="algorithm">
+            <label for="algorithm" class="ilgiAlani-ogesii">algorithm</label>
+
+            <input type="checkbox" name="ilgi_alani" id="methods" value="methods">
+            <label for="methods" class="ilgiAlani-ogesii">methods</label>
+
+            <input type="checkbox" name="ilgi_alani" id="linear" value="linear">
+            <label for="linear" class="ilgiAlani-ogesii">linear</label>
+
+            <input type="checkbox" name="ilgi_alani" id="programming" value="programming">
+            <label for="programming" class="ilgiAlani-ogesii">programming</label>
+
+            <input type="checkbox" name="ilgi_alani" id="network" value="network">
+            <label for="network" class="ilgiAlani-ogesii">network</label>
+
+            <input type="checkbox" name="ilgi_alani" id="medical" value="medical">
+            <label for="medical" class="ilgiAlani-ogesii">medical</label>
+            
+        </div>
+        <input type="submit" value="Seçimleri Gönder">
+    </form>
+
+    <script>
+        var secimmKutularii = document.querySelectorAll('input[type="checkbox"]');
+        var maxsecimm = 5;
+
+        secimmKutularii.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                var checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                if (checkedCount >= maxsecimm) {
+                    secimmKutularii.forEach(function(cb) {
+                        if (!cb.checked) {
+                            cb.disabled = true;
+                        }
+                    });
+                } else {
+                    secimmKutularii.forEach(function(cb) {
+                        cb.disabled = false;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

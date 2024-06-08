@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makale Detayları</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%; /* Kartın genişliği */
+            max-width: 600px; /* Maksimum genişlik */
+        }
+        .card h1 {
+            text-align: center;
+        }
+        .card h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .card ul li {
+            margin-bottom: 5px;
+        }
+        .card p {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Makale Detayları</h1>
+    <div id="makalee_detaylarii">
+        <h2>Makale Adı: {{ makaalee.name }}</h2>
+       <p><strong>Anahtar Bilgiler:</strong>
+            <ul>
+                {% for key in keys_list %}
+                    <li>{{ key }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Özet:</strong> {{ makaalee.abstract }}</p>
+    </div>
+</div>
+
+</body>
+</html>
