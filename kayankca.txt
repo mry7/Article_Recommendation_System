@@ -1,0 +1,7 @@
+https://github.com/LIAAD/KeywordExtractor-Datasets
+https://github.com/boudinfl/krapivin-2009-pre
+https://github.com/allenai/scibert
+https://github.com/facebookresearch/fastText
+https://www.kaggle.com/datasets/sanyatargrenkin/cc-en-300-bin?resource=download
+https://medium.com/machine-learning-t%C3%BCrkiye/cosine-similarity-python-uygulamas%C4%B1-926ff395c47e
+https://www.geeksforgeeks.org/how-to-calculate-cosine-similarity-in-python/
